@@ -1,8 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 from datetime import datetime
 import re
+import requests
 
 app = Flask(__name__)
+
+MOODLE_LOGIN = "sainpostman"  # Ваш логин
 
 # (A) Route with current date
 @app.route('/<date_path>', methods=['GET'])
@@ -14,7 +17,7 @@ def date_route(date_path):
         today = datetime.now().strftime('%d-%m-%Y')
         response = jsonify({
             "date": today,
-            "login": "sainpostman"  # Your login
+            "login": MOODLE_LOGIN
         })
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -30,6 +33,28 @@ def reverse_string(input_str):
         return "Invalid input string", 400
 
     return input_str[::-1]
+
+@app.route('/login', methods=['GET'])
+@app.route('/login/', methods=['GET'])
+def get_login():
+    return Response(MOODLE_LOGIN, mimetype='text/plain')
+
+@app.route('/id/<int:N>', methods=['GET'])
+@app.route('/id/<int:N>/', methods=['GET'])
+def get_user_login(N):
+    try:
+        # Запрос БЕЗ заголовка Content-Type
+        response = requests.get(f'https://nd.kodaktor.ru/users/{N}')
+        response.raise_for_status()
+
+        user_data = response.json()
+        login = user_data.get('login', '')
+        return Response(login, mimetype='text/plain')
+
+    except requests.RequestException:
+        return Response("Error fetching data", status=500, mimetype='text/plain')
+    except Exception:
+        return Response("Error processing request", status=500, mimetype='text/plain')
 
 @app.after_request
 def add_cors_headers(response):
