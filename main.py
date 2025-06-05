@@ -15,6 +15,23 @@ def root():
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
+# Новое задание - маршрут /login/
+@app.route('/login/', methods=['GET'])
+def login_with_charset():
+    response = Response(MOODLE_LOGIN, mimetype='text/plain; charset=UTF-8')
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
+# Новое задание - маршрут /sample/
+@app.route('/sample/', methods=['GET'])
+def sample_function():
+    js_code = """function task(x) {
+    return x * this * this;
+}"""
+    response = Response(js_code, mimetype='text/plain')
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
 # (A) Route with current date
 @app.route('/<date_path>', methods=['GET'])
 @app.route('/<date_path>/', methods=['GET'])
@@ -43,7 +60,6 @@ def reverse_string(input_str):
     return input_str[::-1]
 
 @app.route('/login', methods=['GET'])
-@app.route('/login/', methods=['GET'])
 def get_login():
     return Response(MOODLE_LOGIN, mimetype='text/plain')
 

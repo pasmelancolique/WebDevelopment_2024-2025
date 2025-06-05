@@ -10,6 +10,19 @@
 - Ответ: `sainpostman`
 - Заголовки: `X-Author: sainpostman`, `Access-Control-Allow-Origin: *`
 
+### Новое задание (с trailing slash)
+
+#### A) Маршрут /login/
+`/login/` - возвращает логин с указанной кодировкой
+- Пример: `/login/`
+- Ответ: `sainpostman`
+- Заголовки: `Content-Type: text/plain; charset=UTF-8`, `Access-Control-Allow-Origin: *`
+
+#### B) Маршрут /sample/
+`/sample/` - возвращает JavaScript код функции task
+- Пример: `/sample/`
+- Ответ: JavaScript функция, которая возвращает x * this * this
+
 ### Задание 0047
 
 #### A) Маршрут с датой
