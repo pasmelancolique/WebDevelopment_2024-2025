@@ -10,6 +10,14 @@
 - Ответ: `sainpostman`
 - Заголовки: `X-Author: sainpostman`, `Access-Control-Allow-Origin: *`
 
+### Задание 4 (CORS + JSON)
+
+#### Маршрут /result4/
+`/result4/` - возвращает JSON с данными из заголовков и тела запроса
+- Методы: GET, POST, PUT, DELETE, OPTIONS
+- Ответ: `{"message": "sainpostman", "x-result": "значение_x-test", "x-body": "тело_запроса"}`
+- Полная поддержка CORS с кастомными заголовками
+
 ### Новейшее задание (неделя 3)
 
 #### A) Маршрут /login/

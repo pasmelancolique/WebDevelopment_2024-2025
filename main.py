@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Response
+from flask import Flask, jsonify, Response, request
 from datetime import datetime
 import re
 import requests
@@ -13,6 +13,33 @@ def root():
     response = Response(MOODLE_LOGIN, mimetype='text/plain')
     response.headers['X-Author'] = MOODLE_LOGIN
     response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
+# Задание 4 - маршрут /result4/
+@app.route('/result4/', methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
+def result4():
+    # Получаем заголовок x-test из запроса
+    x_test_value = request.headers.get('x-test', '')
+    
+    # Получаем тело запроса
+    try:
+        body_content = request.get_data(as_text=True)
+    except:
+        body_content = ''
+    
+    # Создаем JSON ответ
+    result = {
+        "message": MOODLE_LOGIN,
+        "x-result": x_test_value,
+        "x-body": body_content
+    }
+    
+    response = jsonify(result)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE,OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'x-test,ngrok-skip-browser-warning,Content-Type,Accept,Access-Control-Allow-Headers'
+    
     return response
 
 # Новое задание - маршрут /login/
@@ -131,7 +158,8 @@ def get_user_login(N):
 @app.after_request
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE,OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'x-test,ngrok-skip-browser-warning,Content-Type,Accept,Access-Control-Allow-Headers'
     return response
 
 if __name__ == '__main__':
