@@ -10,15 +10,28 @@
 - Ответ: `sainpostman`
 - Заголовки: `X-Author: sainpostman`, `Access-Control-Allow-Origin: *`
 
-### Новое задание (с trailing slash)
+### Новейшее задание (неделя 3)
 
 #### A) Маршрут /login/
-`/login/` - возвращает логин с указанной кодировкой
+`/login/` - возвращает логин 
 - Пример: `/login/`
 - Ответ: `sainpostman`
-- Заголовки: `Content-Type: text/plain; charset=UTF-8`, `Access-Control-Allow-Origin: *`
+- Заголовки: `Access-Control-Allow-Origin: *`
 
-#### B) Маршрут /sample/
+#### B) Маршрут /promise/
+`/promise/` - возвращает JavaScript код функции task с промисом
+- Пример: `/promise/`
+- Ответ: функция, которая возвращает промис (resolve 'yes' если x < 18, reject 'no' иначе)
+
+#### C) Маршрут /fetch/
+`/fetch/` - HTML страница с fetch функциональностью
+- Пример: `/fetch/`
+- Ответ: HTML страница с input (id="inp") и button (id="bt")
+- При клике на кнопку делается fetch запрос к URL из поля ввода
+
+### Предыдущие задания
+
+#### Маршрут /sample/
 `/sample/` - возвращает JavaScript код функции task
 - Пример: `/sample/`
 - Ответ: JavaScript функция, которая возвращает x * this * this

@@ -22,6 +22,54 @@ def login_with_charset():
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
+# Новое задание - маршрут /promise/
+@app.route('/promise/', methods=['GET'])
+def promise_function():
+    js_code = """function task(x) {
+    return new Promise((resolve, reject) => {
+        if (x < 18) {
+            resolve('yes');
+        } else {
+            reject('no');
+        }
+    });
+}"""
+    response = Response(js_code, mimetype='text/plain')
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
+# Новое задание - маршрут /fetch/
+@app.route('/fetch/', methods=['GET'])
+def fetch_page():
+    html_content = '''<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch Page</title>
+</head>
+<body>
+    <input type="text" id="inp">
+    <button id="bt">Fetch</button>
+    
+    <script>
+        document.getElementById('bt').addEventListener('click', function() {
+            const url = document.getElementById('inp').value;
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('inp').value = data;
+                })
+                .catch(error => {
+                    document.getElementById('inp').value = 'Error: ' + error;
+                });
+        });
+    </script>
+</body>
+</html>'''
+    response = Response(html_content, mimetype='text/html; charset=UTF-8')
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
 # Новое задание - маршрут /sample/
 @app.route('/sample/', methods=['GET'])
 def sample_function():
