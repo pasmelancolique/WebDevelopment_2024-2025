@@ -7,6 +7,14 @@ app = Flask(__name__)
 
 MOODLE_LOGIN = "sainpostman"  # Ваш логин
 
+# Корневой маршрут для нового задания
+@app.route('/', methods=['GET'])
+def root():
+    response = Response(MOODLE_LOGIN, mimetype='text/plain')
+    response.headers['X-Author'] = MOODLE_LOGIN
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
 # (A) Route with current date
 @app.route('/<date_path>', methods=['GET'])
 @app.route('/<date_path>/', methods=['GET'])
